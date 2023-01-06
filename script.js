@@ -90,12 +90,35 @@ var upperCasedCharacters = [
 
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var passwordLength = prompt("How many characters would you like for your password? Please choose between 10 and 64");
-  var lowercaseLetters = confirm("Would you like lowercase letters?");
-  var uppercaseLetters = confirm("Would you like uppercase letters?");
-  var numberCharacters = confirm("would you like numbers?");
-  var specialCharacters = confirm("Would you like special characters?");
+
+  var options = {} //create empty object to store user options
+  var numChars = parseInt(prompt("How many characters would you like for your password? Please choose between 10 and 64")); //prompt user to input their password length, store in variable. Convert string to int
+  var isValid = passwordLengthCheck(numChars); //boolean to check if valid, while it isn't, keep prompting for new input
+  while(!isValid){
+    numChars = prompt("Please try again. Choose between 10 and 64");
+    isValid = passwordLengthCheck(numChars);
+  }
+  
+  options["passwordLength"] = numChars;
+  options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
+  options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
+  options["numberCharacters"]= confirm("would you like numbers?");
+  options["specialCharacters"]= confirm("Would you like special characters?");
+  console.log(options);
+  return options;
 }
+
+//function to check password length validity
+function passwordLengthCheck(numChars){
+    if(numChars<10 || numChars>64){
+      console.log("fail");
+      return false;
+      }
+      else{
+        console.log("pass");
+        return true;
+      }
+  } 
 
 
 // Function for getting a random element from an array
@@ -106,14 +129,11 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
 
-    var options = {}
-      options["passwordLength"] = prompt("How many characters would you like for your password? Please choose between 10 and 64");
-      options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
-      options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
-      options["numberCharacters"]= confirm("would you like numbers?");
-      options["specialCharacters"]= confirm("Would you like special characters?");
-      console.log(options);
-      return options;
+   getPasswordOptions();
+   
+    
+
+    
   }
   
 
