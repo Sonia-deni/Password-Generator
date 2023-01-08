@@ -98,27 +98,32 @@ function getPasswordOptions() {
     numChars = prompt("Please try again. Choose between 10 and 64");
     isValid = passwordLengthCheck(numChars);
   }
-  
   options["passwordLength"] = numChars;
-  populateOptions();
+
+  //Once a correct password length has been selected, validate the rest of the options
+  var isEnough = populateOptions(); //call the function to get the input and store in the object, also return true/false if none have been selected
+  while(!isEnough){ //alert while there aren't any character types selected, and re prompt for input
+    alert("Please try again. You must select at least one character type");
+    isEnough = populateOptions();
+  }
   console.log(options);
 
   //check at least one of the character types is selected
   var selectedOptions = Object.values(options); //create an array of key values to check for true/false
   selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
-  var isSelected = selectedOptions.some(checkSelected); //use the some function on the array to check if at lease one of them is true
-  if(!isSelected){
-    alert("Please try again. You must select at least one character type");
-    populateOptions();
-    isSelected = selectedOptions.some(checkSelected);
-  }
+  
   
   function populateOptions(){
     options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
     options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
     options["numberCharacters"]= confirm("would you like numbers?");
     options["specialCharacters"]= confirm("Would you like special characters?");
+    var selectedOptions = Object.values(options); //create an array of key values to check for true/false
+    selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
+    var isSelected = selectedOptions.some(checkSelected); //this function will return true if there is at least one option selected
+    return(isSelected);
   }
+
 
   return options;
 }
