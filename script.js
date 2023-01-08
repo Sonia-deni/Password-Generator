@@ -100,10 +100,7 @@ function getPasswordOptions() {
   }
   
   options["passwordLength"] = numChars;
-  options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
-  options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
-  options["numberCharacters"]= confirm("would you like numbers?");
-  options["specialCharacters"]= confirm("Would you like special characters?");
+  populateOptions();
   console.log(options);
 
   //check at least one of the character types is selected
@@ -112,12 +109,17 @@ function getPasswordOptions() {
   var isSelected = selectedOptions.some(checkSelected); //use the some function on the array to check if at lease one of them is true
   if(!isSelected){
     alert("Please try again. You must select at least one character type");
+    populateOptions();
+    isSelected = selectedOptions.some(checkSelected);
+  }
+  
+  function populateOptions(){
     options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
     options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
     options["numberCharacters"]= confirm("would you like numbers?");
     options["specialCharacters"]= confirm("Would you like special characters?");
-    isSelected=selectedOptions.some(checkSelected);
   }
+
   return options;
 }
 
