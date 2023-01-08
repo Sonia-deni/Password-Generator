@@ -110,8 +110,14 @@ function getPasswordOptions() {
   var selectedOptions = Object.values(options); //create an array of key values to check for true/false
   selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
   var isSelected = selectedOptions.some(checkSelected); //use the some function on the array to check if at lease one of them is true
-  console.log(isSelected);
-
+  if(!isSelected){
+    alert("Please try again. You must select at least one character type");
+    options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
+    options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
+    options["numberCharacters"]= confirm("would you like numbers?");
+    options["specialCharacters"]= confirm("Would you like special characters?");
+    isSelected=selectedOptions.some(checkSelected);
+  }
   return options;
 }
 
@@ -127,14 +133,10 @@ function passwordLengthCheck(numChars){
       }
   } 
 
-
 //function to check for a true value in options
 function checkSelected(chosenOptions){
     return chosenOptions;
 }
-
-
-
 
   
 // Function for getting a random element from an array
@@ -145,7 +147,8 @@ function getRandom(arr) {
 // Function to generate password with user input
 function generatePassword() {
 
-   getPasswordOptions();
+   var passwordOptions = getPasswordOptions();
+   console.log(passwordOptions);
    
     
 
