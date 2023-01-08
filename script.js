@@ -148,11 +148,22 @@ function getRandom(arr) {
 function generatePassword() {
 
    var passwordOptions = getPasswordOptions();
-   console.log(passwordOptions);
-   
-    
+   //create an array with the options to randomly generate characters from. Use the options from the object passed back from the getPasswordOptions function
+   var characterChoices = [];
+   if(passwordOptions.lowercaseLetters){
+    characterChoices = characterChoices.concat(lowerCasedCharacters);
+   }
+   if(passwordOptions.uppercaseLetters){
+    characterChoices = characterChoices.concat(upperCasedCharacters);
+   }
+   if(passwordOptions.numberCharacters){
+    characterChoices = characterChoices.concat(numericCharacters);
+   }
+   if(passwordOptions.specialCharacters){
+    characterChoices = characterChoices.concat(specialCharacters);
+   }
+   console.log(characterChoices);
 
-    
   }
   
 
