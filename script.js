@@ -186,16 +186,3 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener('click', writePassword);
 
-
-
-// need to check the options object for at least one data type. If all false, throw an error and ask for new inputs
-
-
-
-//create new array for password characters to choose from
-//if character type == true, add this array to password array
-//do this for each character type
-//change passwordlength from a string to a number using parseInt()
-//loop over the new long array for the length of the password, and each time randomly select a character. Push this into a new array and return it
-
-//
