@@ -105,6 +105,13 @@ function getPasswordOptions() {
   options["numberCharacters"]= confirm("would you like numbers?");
   options["specialCharacters"]= confirm("Would you like special characters?");
   console.log(options);
+
+  //check at least one of the character types is selected
+  var selectedOptions = Object.values(options); //create an array of key values to check for true/false
+  selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
+  var isSelected = selectedOptions.some(checkSelected); //use the some function on the array to check if at lease one of them is true
+  console.log(isSelected);
+
   return options;
 }
 
@@ -121,6 +128,15 @@ function passwordLengthCheck(numChars){
   } 
 
 
+//function to check for a true value in options
+function checkSelected(chosenOptions){
+    return chosenOptions;
+}
+
+
+
+
+  
 // Function for getting a random element from an array
 function getRandom(arr) {
 
@@ -153,14 +169,14 @@ generateBtn.addEventListener('click', writePassword);
 
 
 
-//when the user clicks the button
-  //prompt for length
-  //check valid, if so, store. If not, re prompt
-  //next prompt for character types
-  //store boolean true/false
+// need to check the options object for at least one data type. If all false, throw an error and ask for new inputs
+
+
 
 //create new array for password characters to choose from
 //if character type == true, add this array to password array
 //do this for each character type
 //change passwordlength from a string to a number using parseInt()
 //loop over the new long array for the length of the password, and each time randomly select a character. Push this into a new array and return it
+
+//
