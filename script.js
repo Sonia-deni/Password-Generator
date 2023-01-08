@@ -124,11 +124,9 @@ function getPasswordOptions() {
 //function to check password length validity
 function passwordLengthCheck(numChars){
     if(numChars<10 || numChars>64){
-      console.log("fail");
       return false;
       }
       else{
-        console.log("pass");
         return true;
       }
   } 
@@ -138,11 +136,9 @@ function checkSelected(chosenOptions){
     return chosenOptions;
 }
 
-  
 // Function for getting a random element from an array
-function getRandom(arr) {
-
-}
+//function getRandom(arr) {
+//}
 
 // Function to generate password with user input
 function generatePassword() {
@@ -162,8 +158,17 @@ function generatePassword() {
    if(passwordOptions.specialCharacters){
     characterChoices = characterChoices.concat(specialCharacters);
    }
-   console.log(characterChoices);
-
+   
+   //create an empty string. Then for the length of the password, loop over the array and randomly select a character
+   var password = "";
+   var pLength = passwordOptions.passwordLength; 
+   var oLength = characterChoices.length; //the length of the array of options, so that the random number generated is correct
+   for(var i=0; i<pLength; i++){
+    var ramdomCharSelect = Math.floor(Math.random()*oLength);
+    password += characterChoices[ramdomCharSelect]; //add the randomly selected character to the string
+   }
+   console.log(password);
+   return password;
   }
   
 
