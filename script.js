@@ -88,17 +88,17 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-// Function to prompt user for password options
+// Function to prompt user for password options and return the options as an object
 function getPasswordOptions() {
 
-  var options = {} //create empty object to store user options
+  var options = {}; //create empty object to store user options
   var numChars = parseInt(prompt("How many characters would you like for your password? Please choose between 10 and 64")); //prompt user to input their password length, store in variable. Convert string to int
   var isValid = passwordLengthCheck(numChars); //boolean to check if valid, while it isn't, keep prompting for new input
   while(!isValid){
     numChars = prompt("Please try again. Choose between 10 and 64");
     isValid = passwordLengthCheck(numChars);
   }
-  options["passwordLength"] = numChars;
+  options["passwordLength"] = numChars; //assign the value to the key in the object
 
   //Once a correct password length has been selected, validate the rest of the options
   var isEnough = populateOptions(); //call the function to get the input and store in the object, also return true/false if none have been selected
@@ -107,24 +107,20 @@ function getPasswordOptions() {
     isEnough = populateOptions();
   }
   console.log(options);
-
-  //check at least one of the character types is selected
-  var selectedOptions = Object.values(options); //create an array of key values to check for true/false
-  selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
-  
   
   function populateOptions(){
     options["lowercaseLetters"]= confirm("Would you like lowercase letters?");
     options["uppercaseLetters"]= confirm("Would you like uppercase letters?");
     options["numberCharacters"]= confirm("would you like numbers?");
     options["specialCharacters"]= confirm("Would you like special characters?");
+    //check at least one of the character types is selected
     var selectedOptions = Object.values(options); //create an array of key values to check for true/false
     selectedOptions.shift(); //remove the first element before checking for boolean values, otherwise it will always return true
-    var isSelected = selectedOptions.some(checkSelected); //this function will return true if there is at least one option selected
+    var isSelected = selectedOptions.some(function(checkSelected){ //this function will return true if there is at least one option selected
+      return checkSelected;
+    }); 
     return(isSelected);
   }
-
-
   return options;
 }
 
@@ -138,14 +134,6 @@ function passwordLengthCheck(numChars){
       }
   } 
 
-//function to check for a true value in options
-function checkSelected(chosenOptions){
-    return chosenOptions;
-}
-
-// Function for getting a random element from an array
-//function getRandom(arr) {
-//}
 
 // Function to generate password with user input
 function generatePassword() {
