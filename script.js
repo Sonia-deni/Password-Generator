@@ -92,13 +92,14 @@ var upperCasedCharacters = [
 function getPasswordOptions() {
 
   var options = {}; //create empty object to store user options
-  var numChars = parseInt(prompt("How many characters would you like for your password? Please choose between 10 and 64")); //prompt user to input their password length, store in variable. Convert string to int
+  
+  var numChars = prompt("How many characters would you like for your password? Please choose between 10 and 64"); //prompt user to input their password length, store in variable. Convert string to int
   var isValid = passwordLengthCheck(numChars); //boolean to check if valid, while it isn't, keep prompting for new input
   while(!isValid){
     numChars = prompt("Please try again. Choose between 10 and 64");
     isValid = passwordLengthCheck(numChars);
   }
-  options["passwordLength"] = numChars; //assign the value to the key in the object
+  options["passwordLength"] = parseInt(numChars); //assign the value to the key in the object
 
   //Once a correct password length has been selected, validate the rest of the options
   var isEnough = populateOptions(); //call the function to get the input and store in the object, also return true/false if none have been selected
@@ -126,8 +127,11 @@ function getPasswordOptions() {
 
 //function to check password length validity
 function passwordLengthCheck(numChars){
-    if(numChars<10 || numChars>64){
-      return false;
+  if(isNaN(numChars)){ //check if input is a number first
+    return false;
+  }
+    else if(numChars<10 || numChars>64){ //if input is a number, check if it is in range
+      return false; 
       }
       else{
         return true;
